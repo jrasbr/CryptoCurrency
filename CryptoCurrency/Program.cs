@@ -1,6 +1,22 @@
 ﻿public class Converter {
     //Main method
-    public static void Main(string[] args) {}
+    public static void Main(string[] args)
+    {
+        //Eksempel på brug af Converter klassen
+        //Opret en instans af Converter klassen
+        Converter converter = new Converter();
+
+        //Angiv priser for forskellige kryptovalutaer
+        converter.SetPricePerUnit("Bitcoin", 10000);
+        converter.SetPricePerUnit("Ethereum", 300);
+        converter.SetPricePerUnit("Litecoin", 50);
+
+        //Konverter fra Bitcoin til Ethereum
+        double amount = 100;
+        double convertedAmount = converter.Convert("Bitcoin", "Ethereum", amount);
+
+        Console.WriteLine(amount + " Bitcoin is " + convertedAmount + " Ethereum");
+    }
 
     Dictionary<string, double> prices = new Dictionary<string, double>();
     /// <summary>
@@ -14,7 +30,7 @@
 
         //Hvis prisen er negativ, returneres uden at gøre noget
         if (price <= 0)
-            return;
+            throw new ArgumentException("Price must be a non-negative value");
 
         //Fjern nøglen. Hvis den ikke findes, smides der ingen exception.
         prices.Remove(currencyName);
@@ -33,6 +49,7 @@
     /// <param name="amount">Beløbet angivet i valutaen angivet i fromCurrencyName</param>
     /// <returns>Værdien af beløbet i toCurrencyName</returns>
     public double Convert(String fromCurrencyName, String toCurrencyName, double amount) {
+       
         //Hvis en af valutaerne ikke findes, kastes en ArgumentException
         if (!prices.ContainsKey(fromCurrencyName) || !prices.ContainsKey(toCurrencyName))
             throw new ArgumentException("Key did not exist");

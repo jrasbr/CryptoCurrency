@@ -28,7 +28,9 @@
     /// <param name="price">Prisen på en enhed af valutaen målt i dollars. Prisen kan ikke være negativ</param>
     public void SetPricePerUnit(String currencyName, double price) {
 
-        //Hvis prisen er negativ, returneres uden at gøre noget
+       if (string.IsNullOrEmpty(currencyName))
+             throw new ArgumentException("Invalid currencyname");
+        
         if (price <= 0)
             throw new ArgumentException("Price must be a non-negative value");
 
